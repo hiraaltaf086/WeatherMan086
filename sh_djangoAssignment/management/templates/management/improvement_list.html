@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if improvement_list %}
+<div class="container" >
+  <h4><strong>Improvement Reports:</strong></h4>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Subject</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for report in improvement_list %}
+    <tr>
+        <td><a  href="{% url 'management:detail-improvement' report.id %}">{{ report.subject }}</a></td>
+        <td><a class="btn btn-primary" href="{% url 'management:detail-improvement' report.id %} ">View Report</a></td>
+        {% if report.is_investigated%}
+        <td><h5>Status: <strong>Investigated</strong></h5></td>
+        {% else %}
+        <td><h5>Status: <strong>Needs Investigation</strong></h5></td>
+        {% endif %}
+      </tr>
+     {% endfor %}
+    </tbody>
+  </table>
+</div>
+    {% else %}
+     <h3 class="bg-danger">No Improvement Reports are available.</h3>
+{% endif %}
+{% endblock %}

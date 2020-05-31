@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <table class="table">
+    <tbody>
+        <tr>
+          <th>Subject</th>
+            <td>{{report.subject}}</td>
+        </tr>
+        <tr>
+          <th>Description</th>
+            <td>{{report.description}}</td>
+        </tr>
+        <tr>
+          <th>Reported by</th>
+            <td>{{report.author}}</td>
+        </tr>
+        <tr>
+          <th>Reported on  </th>
+            <td>{{report.date}}</td>
+        </tr>
+    {%if investigation_report%}
+       <tr>
+          <th>Investigated by</th>
+            <td>{{investigation_report.author}}</td>
+        </tr>
+       <tr>
+          <th>Report Status: </th>
+            {% if report.is_valid%}
+            <td>Valid</td>
+            {% else %}
+            <td>Invalid</td>
+            {% endif %}
+        </tr>
+    {% endif %}
+        </tbody>
+  </table><br>
+
+    {%if task %}
+    <h4><strong>Task Details:</strong> </h4>
+    <table class="table">
+      <thead>
+      <tr>
+        <th>Task State</th>
+        <th>Time Created</th>
+        <th>Completion Time</th>
+        <th>Task Priority</th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{task.get_state_display }}</td>
+            <td>{{task.time_created}}</td>
+            <td>{{task.time_completed}}</td>
+            <td>{{task.get_priority_display }}</td>
+            {%if task.time_completed is None%}
+            <td><a href="{% url 'management:task-completion' task.id %}" class="btn btn-info" role="button">Mark Complete</a></td>
+            {% endif %}
+        </tr>
+    </tbody>
+  </table>
+    {% endif %}
+   {% if not investigation_report %}
+    <a href="{% url 'management:validate-malfunction' report.id 'valid'  %}" class="btn btn-info" role="button">Mark Valid</a>
+   <a href="{% url 'management:validate-malfunction' report.id 'invalid' %}" class="btn btn-info" role="button">Mark Invalid</a><br><br>
+    {% endif %}
+   <a href="{% url 'management:list-malfunction' %}" class="btn btn-info" role="button">Back to Homepage</a>
+
+</div>
+{% endblock %}

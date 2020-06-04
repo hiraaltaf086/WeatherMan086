@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <h2>Creating a task against the report: </h2>
+    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+        {%csrf_token%}
+        {{form.as_p}}
+        <input class="btn btn-info" type="submit" value="Create">
+        <a href="{% url 'management:homepage' %}" class="btn btn-info" role="button">Back to Homepage</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

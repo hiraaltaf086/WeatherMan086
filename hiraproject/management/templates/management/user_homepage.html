@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>User Home Page</h1>
+<a href="{% url 'management:create-malfunction' %}">Report malfunction</a><br>
+<a href="{% url 'management:create-improvement' %}">Report Suggestion/improvemnt</a><br>
+{% endblock %}

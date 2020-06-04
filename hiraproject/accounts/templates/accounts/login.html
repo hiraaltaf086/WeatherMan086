@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1><span class="glyphicon glyphicon-user"></span> User Login</h1><br>
+    <form class="form-horizontal" action="" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            {% csrf_token %}
+            {{form}}
+            {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+            {% endif %}
+            <input type="submit" class="btn btn-info" value="Login">
+        </div>
+    </form>
+</div>
+{% endblock %}
